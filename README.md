@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# `{spectrum.regression.testing}`
+# Spectrum regression testing
 
 <!-- badges: start -->
 

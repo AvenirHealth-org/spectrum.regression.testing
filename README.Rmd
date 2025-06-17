@@ -17,7 +17,7 @@ output: github_document
 ## Build the README by running `devtools::build_readme()`
 ```
 
-# `{spectrum.regression.testing}`
+# Spectrum regression testing
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
