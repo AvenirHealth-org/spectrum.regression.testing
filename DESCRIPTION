@@ -7,8 +7,19 @@ Description: Package contianing a shiny app for regression testing Spectrum.
 License: MIT + file LICENSE
 Imports: 
     config,
+    data.table,
+    data.tree,
+    dotenv,
+    dplyr,
+    DT,
+    ggplot2,
     golem,
-    shiny
+    ISOcodes,
+    lubridate,
+    plyr,
+    readxl,
+    shiny,
+    shinyTree
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.1

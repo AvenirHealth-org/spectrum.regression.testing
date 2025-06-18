@@ -45,8 +45,11 @@ To run in development run the script `./scripts/run_dev.R`
 
 ## Data
 
-This app loads data from 2 different sources
+This app uses data from 2 different sources
+
 1. Dropbox
 2. spectrum-orderly
+
+To use dropbox data, we need to provide a path to the locally synced or downloaded extract files. Run the `./scripts/initialize_data.R` to help setup this environment. It will prompt you for a path to the "extracts" directory which contains output from running the Spectrum extract tool. Files will then be read from this directory.
 
 TODO: Fill in details of working with the different data

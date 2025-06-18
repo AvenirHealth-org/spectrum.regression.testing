@@ -1,0 +1,27 @@
+ExtractTab,ExtractName,Config,Module,Indicator,Age
+1. Total population,Total population,1,DemProj,Population,All
+2. Total Births,Total Births,1,DemProj,Births,All
+3. Total Deaths,Total Deaths,1,DemProj,Deaths,All
+4. HIV population,HIV population,1,AIM,HIV population,All
+5. Number of new HIV infections,Number of new HIV infections,1,AIM,New HIV infections,All
+6. AIDS deaths,AIDS deaths,1,AIM,AIDS deaths,All
+7. HIV population (0-14),HIV population (0-14),2,AIM,HIV population,0-14
+8. New HIV infections (0-14),New HIV infections (0-14),2,AIM,New HIV infections,0-14
+9. Annual AIDS deaths (0-14),Annual AIDS deaths (0-14),2,AIM,AIDS deaths,0-14
+10. HIV population (15-49),HIV population (15-49),2,AIM,HIV population,15-49
+11. New HIV infections (15-49),New HIV infections (15-49),2,AIM,New HIV infections,15-49
+12. Annual AIDS deaths (15-49),Annual AIDS deaths (15-49),2,AIM,AIDS deaths,15-49
+13. HIV population (50+),HIV population (50+),2,AIM,HIV population,50+
+14. New HIV infections (50+),New HIV infections (50+),2,AIM,New HIV infections,50+
+15. Annual AIDS deaths (50+),Annual AIDS deaths (50+),2,AIM,AIDS deaths,50+
+16. Population aged 0-14,Population aged 0-14,3,DemProj,Population,0-14
+17. Population aged 15-49,Population aged 15-49,3,DemProj,Population,15-49
+18. Population aged 50+,Population aged 50+,3,DemProj,Population,50+
+19. Children receiving ART (0-1,Children receiving ART (0-14) - (mid-year),3,AIM,ART population,0-14
+20. Total number receiving ART ,Total number receiving ART (15-49) - (mid-year),3,AIM,ART population,15-49
+21. Total number receiving ART ,Total number receiving ART (15+) - (mid-year),3,AIM,ART population,15+
+22. Mothers needing PMTCT,Mothers needing PMTCT,3,AIM,PMTCT need,15-49
+23. Mothers receiving PMTCT,Mothers receiving PMTCT,3,AIM,PMTCT population,15-49
+19. Children receiving ART (0-1,Children receiving ART (0-14) - (developer),3,AIM,ART population,0-14
+20. Total number receiving ART ,Total number receiving ART (15-49) - (developer),3,AIM,ART population,15-49
+21. Total number receiving ART ,Total number receiving ART (15+) - (developer),3,AIM,ART population,15+
