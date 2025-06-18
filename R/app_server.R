@@ -8,7 +8,9 @@
 #' @noRd
 app_server <- function(input, output, session) {
   meta.data = setup.meta.data()
-  round.data = reactive(setup.round.data(meta.data, input$EstimatesRound))
+  round.data = reactive({
+    setup.round.data(meta.data, input$EstimatesRound)
+  })
 
   round.tree = reactive({
     dat = round.data()
@@ -33,7 +35,7 @@ app_server <- function(input, output, session) {
     return(selected.pjnzs(input$locationTree))
   })
 
-  load.extract1 = reactive({
+  load.extract1 = eventReactive(input$version1, {
     req(input$version1)
     # print(sprintf("Version1 = %s", input$version1))
     dat = round.data()
@@ -41,7 +43,7 @@ app_server <- function(input, output, session) {
     process.extract(hash, dat$version, dat$location$data, dat$indicator$data)
   })
 
-  load.extract2 = reactive({
+  load.extract2 = eventReactive(input$version2, {
     req(input$version2)
     # print(sprintf("Version2 = %s", input$version2))
     dat = round.data()
