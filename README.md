@@ -21,17 +21,7 @@ You can install the development version of
 remotes::install_github("AvenirHealth-org/spectrum.regression.testing")
 ```
 
-## Run
-
-You can launch the application by running:
-
-``` r
-spectrum.regression.testing::run_app()
-```
-
-To run in development run the script `./scripts/run_dev.R`
-
-## Data
+## Setup
 
 This app uses data from 2 different sources
 
@@ -45,3 +35,15 @@ directory which contains output from running the Spectrum extract tool.
 Files will then be read from this directory.
 
 TODO: Fill in details of working with the different data
+
+## Run
+
+You can launch the application by running:
+
+``` r
+spectrum.regression.testing::run_app()
+```
+
+To run in development run the script `./scripts/run_dev.R` or source the
+app in an R session with `devtools::load_all()` and then run the app
+with `run_app()`

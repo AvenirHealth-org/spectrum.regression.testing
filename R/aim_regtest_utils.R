@@ -48,9 +48,13 @@ process.extract = function(commit.hash, version.data, location.data, indicator.d
 
   vdat = version.data[version.data$Commit == commit.hash,]
 
+  config_filename <- sprintf("extract-v%04d.EX", vdat$Config)
+  tab_names <- get_tab_names_from_extract_config(
+    app_sys("extract_config", config_filename))
+
   if (nrow(vdat) == 1) {
-    tabs = indicator.data$ExtractTab[indicator.data$Config <= vdat$Config]
-    extract.long = read.extract(file.path(EXTRACTS_DIR, vdat$ExtractName), tabs)
+    tabs_read = tab_names[names(tab_names) %in% indicator.data$ExtractName]
+    extract.long = read.extract(file.path(EXTRACTS_DIR, vdat$ExtractName), tabs_read)
     extract.long = annotate.extract(extract.long, version.data, location.data, indicator.data)
     extract.long = standardize.age.groups(extract.long)
   } else {
@@ -395,3 +399,17 @@ generate.diffs = function(data.vals) {
   return(crystalize.plot(p, data.wide))
 }
 
+get_indicator_list_from_extract_config <- function(extract_config) {
+  ex <- readLines(extract_config)
+  ex <- ex[grepl("Indicator name:", ex)]
+  sub("Indicator name:([^,;]+),+", "\\1", ex)
+}
+
+get_tab_names_from_extract_config <- function(extract_config) {
+  indicator_list <- get_indicator_list_from_extract_config(extract_config)
+  append_num <- function(n, indicator) sprintf("%s. %s", n, indicator)
+  sheet_names <- unlist(
+    Map(append_num, seq_along(indicator_list), indicator_list))
+  ## Sheet names are limited to 27 characters in length
+  setNames(sheet_names, substr(indicator_list, 1, 27))
+}
