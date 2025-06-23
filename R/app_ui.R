@@ -21,10 +21,34 @@ app_ui <- function(request) {
                       selected = max(meta.data$version$Round)),
           tabsetPanel(id="Navigator",
                       type="tabs",
-                      tabPanel("Version",
-                               br(), # Put some space between tabs and controls. Consider doing this via CSS instead...
-                               fluidRow(selectInput("version1", label="Spectrum version 1", choices=NULL)),
-                               fluidRow(selectInput("version2", label="Spectrum version 2", choices=NULL))),
+                      tabPanel(
+                        "Version",
+                        br(),
+                        h4(strong("Spectrum version 1")),
+                        checkboxInput("useOrderlyData1", "Use orderly data", FALSE),
+                        conditionalPanel(
+                          condition = "!input.useOrderlyData1",
+                          selectInput("version1", label = NULL, choices = NULL),
+                        ),
+                        conditionalPanel(
+                          condition = "input.useOrderlyData1",
+                          selectInput("orderlySpectrum1", label = "Spectrum version", choices = NULL),
+                          checkboxInput("orderlyLeapfrog1", label = "Leapfrog run", FALSE),
+                          selectInput("orderlyRunDate1", label = "Run date", choices = NULL)
+                        ),
+                        h4(strong("Spectrum version 2")),
+                        checkboxInput("useOrderlyData2", "Use orderly data", FALSE),
+                        conditionalPanel(
+                          condition = "!input.useOrderlyData2",
+                          selectInput("version2", label = NULL, choices = NULL),
+                        ),
+                        conditionalPanel(
+                          condition = "input.useOrderlyData2",
+                          selectInput("orderlySpectrum2", label = "Spectrum version", choices = NULL),
+                          checkboxInput("orderlyLeapfrog2", label = "Leapfrog run", FALSE),
+                          selectInput("orderlyRunDate2", label = "Run date", choices = NULL)
+                        ),
+                      ),
                       tabPanel("Location", br(), shinyTree::shinyTree("locationTree", checkbox=TRUE, multiple=TRUE, sort=TRUE, themeIcons=FALSE)),
                       tabPanel("Indicator",
                                checkboxGroupInput("indicators", label="", choices=var.levels$ind, selected=var.levels$ind[4:6]),
