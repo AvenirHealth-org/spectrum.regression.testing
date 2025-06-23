@@ -7,6 +7,8 @@
 app_ui <- function(request) {
   meta.data = setup.meta.data()
 
+  orderly_spectrum_versions <- list_spectrum_versions(ORDERLY_ROOT)
+
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
@@ -32,9 +34,9 @@ app_ui <- function(request) {
                         ),
                         conditionalPanel(
                           condition = "input.useOrderlyData1",
-                          selectInput("orderlySpectrum1", label = "Spectrum version", choices = NULL),
+                          selectInput("orderlySpectrum1", label = "Spectrum version", choices = orderly_spectrum_versions),
                           checkboxInput("orderlyLeapfrog1", label = "Leapfrog run", FALSE),
-                          selectInput("orderlyRunDate1", label = "Run date", choices = NULL)
+                          selectInput("orderlyVersion1", label = "Version", choices = NULL)
                         ),
                         h4(strong("Spectrum version 2")),
                         checkboxInput("useOrderlyData2", "Use orderly data", FALSE),
@@ -44,9 +46,9 @@ app_ui <- function(request) {
                         ),
                         conditionalPanel(
                           condition = "input.useOrderlyData2",
-                          selectInput("orderlySpectrum2", label = "Spectrum version", choices = NULL),
+                          selectInput("orderlySpectrum2", label = "Spectrum version", choices = orderly_spectrum_versions),
                           checkboxInput("orderlyLeapfrog2", label = "Leapfrog run", FALSE),
-                          selectInput("orderlyRunDate2", label = "Run date", choices = NULL)
+                          selectInput("orderlyVersion2", label = "Version", choices = NULL)
                         ),
                       ),
                       tabPanel("Location", br(), shinyTree::shinyTree("locationTree", checkbox=TRUE, multiple=TRUE, sort=TRUE, themeIcons=FALSE)),

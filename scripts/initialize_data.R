@@ -21,7 +21,7 @@ if (!file.exists(file.path(extract_path, "aim2024"))) {
 }
 
 message("This repo also uses external data from spectrum-orderly orderly instance.")
-message("Clone the repo from GitHub https://github.com/avenirHealth-org/spectrum-orderly and enter the local below")
+message("Sync the remote repo from sharepoint https://futuresinstitute.sharepoint.com/:f:/s/Programming/Es57cTFvF_tKv0KzTKacj_sBaCtvQKke_UtfB8_dzE-LzQ?e=65bdZw and enter the local path below")
 cat("Local path to orderly repo: ")
 orderly_root <- readLines("stdin", n = 1)
 

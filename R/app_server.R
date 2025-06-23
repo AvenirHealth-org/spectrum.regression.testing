@@ -28,6 +28,40 @@ app_server <- function(input, output, session) {
     updateSelectInput(session=session, inputId="version2", choices=dat$version$name, selected=dat$version$name[2])
   })
 
+  observeEvent(
+    c(
+      input$useOrderlyData1,
+      input$orderlySpectrum1,
+      input$orderlyLeapfrog1
+    ),
+    {
+      if (input$useOrderlyData1) {
+        orderly_version1_choices <- list_orderly_versions(ORDERLY_ROOT, input$orderlySpectrum1, input$orderlyLeapfrog1)
+        updateSelectInput(session = session,
+                          inputId = "orderlyVersion1",
+                          choices = orderly_version1_choices,
+                          selected = orderly_version1_choices[1])
+      }
+    }
+  )
+
+  observeEvent(
+    c(
+      input$useOrderlyData2,
+      input$orderlySpectrum2,
+      input$orderlyLeapfrog2
+    ),
+    {
+      if (input$useOrderlyData2) {
+        orderly_version2_choices <- list_orderly_versions(ORDERLY_ROOT, input$orderlySpectrum2, input$orderlyLeapfrog2)
+        updateSelectInput(session = session,
+                          inputId = "orderlyVersion2",
+                          choices = orderly_version2_choices,
+                          selected = orderly_version2_choices[1])
+      }
+    }
+  )
+
   output$locationTree = shinyTree::renderTree(round.tree())
 
   selected.files = reactive({
@@ -35,21 +69,47 @@ app_server <- function(input, output, session) {
     return(selected.pjnzs(input$locationTree))
   })
 
-  load.extract1 = eventReactive(input$version1, {
-    req(input$version1)
-    # print(sprintf("Version1 = %s", input$version1))
-    dat = round.data()
-    hash = lookup.version(input$version1, dat$version)
-    process.extract(hash, dat$version, dat$location$data, dat$indicator$data)
-  })
+  load.extract1 = eventReactive(
+    c(
+      input$useOrderlyData1,
+      input$version1,
+      input$orderlyVersion1
+    ),
+    {
+      if (input$useOrderlyData1) {
+        req(input$orderlyVersion1)
+        dat <- round.data()
+        process.extract.orderly(input$orderlyVersion1, dat$location$data, dat$indicator$data)
+      } else {
+        req(input$version1)
+        # print(sprintf("Version1 = %s", input$version1))
+        dat = round.data()
+        hash = lookup.version(input$version1, dat$version)
+        process.extract(hash, dat$version, dat$location$data, dat$indicator$data)
+      }
+    }
+  )
 
-  load.extract2 = eventReactive(input$version2, {
-    req(input$version2)
-    # print(sprintf("Version2 = %s", input$version2))
-    dat = round.data()
-    hash = lookup.version(input$version2, dat$version)
-    process.extract(hash, dat$version, dat$location$data, dat$indicator$data)
-  })
+  load.extract2 = eventReactive(
+    c(
+      input$useOrderlyData2,
+      input$version2,
+      input$orderlyVersion2
+    ),
+    {
+      if (input$useOrderlyData2) {
+        req(input$orderlyVersion2)
+        dat <- round.data()
+        process.extract.orderly(input$orderlyVersion2, dat$location$data, dat$indicator$data)
+      } else {
+        req(input$version2)
+        # print(sprintf("Version2 = %s", input$version2))
+        dat = round.data()
+        hash = lookup.version(input$version2, dat$version)
+        process.extract(hash, dat$version, dat$location$data, dat$indicator$data)
+      }
+    }
+  )
 
   merge.extracts = reactive({
     dplyr::bind_rows(list(Version1 = load.extract1(),

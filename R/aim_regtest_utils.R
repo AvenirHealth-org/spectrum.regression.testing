@@ -55,7 +55,7 @@ process.extract = function(commit.hash, version.data, location.data, indicator.d
   if (nrow(vdat) == 1) {
     tabs_read = tab_names[names(tab_names) %in% indicator.data$ExtractName]
     extract.long = read.extract(file.path(EXTRACTS_DIR, vdat$ExtractName), tabs_read)
-    extract.long = annotate.extract(extract.long, version.data, location.data, indicator.data)
+    extract.long = annotate.extract(extract.long, location.data, indicator.data)
     extract.long = standardize.age.groups(extract.long)
   } else {
     extract.long = NULL
@@ -65,6 +65,22 @@ process.extract = function(commit.hash, version.data, location.data, indicator.d
   time.final = Sys.time()
   cat(sprintf("process.extract:\t%0.2f seconds\n", difftime(time.final, time.start, units="sec")))
   return(extract.long)
+}
+
+process.extract.orderly <- function(orderly_id, location.data, indicator.data) {
+  time.start <- Sys.time()
+
+  paths <- get_orderly_file_paths(ORDERLY_ROOT, orderly_id)
+  tab_names <- get_tab_names_from_extract_config(paths$extract_config)
+  tabs_read <- tab_names[names(tab_names) %in% indicator.data$ExtractName]
+  extract.long <- read.extract(paths$extract, tabs_read)
+  extract.long <- annotate.extract(extract.long, location.data, indicator.data)
+  extract.long <- standardize.age.groups(extract.long)
+
+  time.final <- Sys.time()
+  cat(sprintf("process.extract.orderly:\t%0.2f seconds\n", difftime(time.final, time.start, units="sec")))
+
+  extract.long
 }
 
 read.extract.tab = function(xlsx.name, tab.name) {
@@ -123,7 +139,7 @@ read.extract = function(xlsx.name, tabs) {
   return(extract.long)
 }
 
-annotate.extract = function(extract.long, version.data, location.data, indicator.data) {
+annotate.extract = function(extract.long, location.data, indicator.data) {
   time.start = Sys.time()
 
   extract.long$Region = factor(plyr::mapvalues(extract.long$Alpha,
